@@ -1,0 +1,54 @@
+{#
+Table that shows the details of the given devices and lets the user interact with them.
+
+Required context:
+- items: The list of devices to show in the table.
+#}
+
+{% from "icons/bug.jinja" import bug_mini as bug_icon %}
+{% from "icons/dollar.jinja" import dollar_mini as dollar_icon%}
+{% from "icons/pencil.jinja" import pencil_mini as pencil_icon%}
+{% from "icons/trash.jinja" import trash_mini as trash_icon%}
+
+{% macro table_head() -%}
+<thead>
+    <tr>
+        <th class="w-4"></th>
+        <th class="w-8">ID</th>
+        <th><span class="font-semibold text-info">Code</span></th>
+        <th>Location</th>
+        <th>Created at</th>
+        <th class="w-8"></th>
+    </tr>
+</thead>
+{%- endmacro %}
+
+{% macro table_row(index, device) %}
+<tr class="hover cursor-pointer" hx-trigger="click" hx-get="/device/{{ device.id }}" hx-target="#dialog-container">
+    <th>{{ index }}</th>
+    <td>{{ device.id }}</td>
+    <td><span class="font-semibold text-info">{{ device.code }}</span></td>
+    <td>{{ device.location }}</td>
+    <td>{{ device.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+    <td class="flex flex-row">
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/sales-event/{{ device.id }}"
+            hx-target="#dialog-container">{{ dollar_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/telemetry-event/{{ device.id }}"
+            hx-target="#dialog-container">{{ bug_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/device/{{ device.id }}"
+            hx-target="#dialog-container">{{ pencil_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-delete="/device-ui/{{device.id}}"
+            hx-target="#dialog-container">{{ trash_icon("text-error") }}</button>
+    </td>
+</tr>
+{% endmacro %}
+
+<table id="devices-table" class="table table-pin-cols">
+    {{ table_head() }}
+
+    <tbody>
+        {% for device in items %}
+        {{ table_row(loop.index, device) }}
+        {% endfor %}
+    </tbody>
+</table>

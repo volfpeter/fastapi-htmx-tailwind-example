@@ -1,0 +1,15 @@
+{#
+Confirmation dialog for device deletion.
+
+Context requirements:
+- Unpacked `Device` instance.
+#}
+
+{% extends "confirmation-dialog.jinja" %}
+
+{% block title %}Delete {{code}}{% endblock%}
+{% block message %}Are you sure you want to delete the device with the following code: {{code}}?{% endblock %}
+{% block confirm_button %}
+<button class="btn btn-error" hx-delete="/device/{{id}}/" hx-target="#confirmation-dialog"
+    hx-swap="delete">Delete</button>
+{% endblock %}

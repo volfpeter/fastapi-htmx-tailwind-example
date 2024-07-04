@@ -1,0 +1,28 @@
+{#
+Extensible confirmation dialog.
+
+Blocks:
+- title: For title customization.
+- message: For message customization.
+- cancel_button: For replacing the default cancel button of the dialog.
+- confirm_button: The confirmation button of the dialog, required.
+#}
+
+{% from "close-dialog-button.jinja" import close_dialog_button %}
+
+<dialog id="confirmation-dialog" class="modal" open>
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">
+            {% block title %}Confirmation{% endblock %}
+        </h3>
+        <div class="py-4">
+            {% block message %}Are you sure you want to continue?{% endblock %}
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                {% block cancel_button%}{{ close_dialog_button("Cancel") }}{% endblock %}
+                {% block confirm_button required%}{% endblock %}
+            </form>
+        </div>
+    </div>
+</dialog>

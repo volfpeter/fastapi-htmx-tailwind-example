@@ -1,0 +1,26 @@
+{#
+Form for editing device properties.
+
+Required context:
+- Unpacked `Device` instance (only for editing).
+#}
+
+{% macro form_item(label, value, name, editable=true, focus=false) %}
+<label class="input input-bordered flex items-center gap-2">
+    <label class="w-1/5">{{ label }}</label>
+    {% if editable %}
+    <input type="text" class="grow" name="{{ name }}" value="{{ value }}" {{ "autofocus" if focus else "" }} />
+    {% else %}
+    <label class="grow">{{ value }}</label>
+    {% endif %}
+</label>
+{% endmacro %}
+
+{% if id is defined %}
+{{ form_item("Identifier:", id, "id", false) }}
+{% endif %}
+
+
+
+{{ form_item("Code:", code, "code", true, true) }}
+{{ form_item("Location:", location, "location") }}

@@ -1,0 +1,27 @@
+{#
+Dialog that shows that the live telemetry events of a device.
+
+The dialog automatically updates its content with new data using server-side events.
+
+Required context:
+- Unpacked device instance.
+#}
+
+{% from "app_model/telemetry_event/telemetry-events-table.jinja" import telemetry_events_table %}
+{% from "close-dialog-button.jinja" import close_dialog_button %}
+
+<dialog id="telemetry-events-of-device-dialog" class="modal" open>
+    <div class="modal-box h-3/4 max-h-[80vh] flex flex-col">
+        <h3 class="flex-0 text-lg font-bold">Telemetry: {{ code }}</h3>
+        <div class="flex-1 py-4 w-full h-full overflow-y-auto" hx-ext="sse"
+            sse-connect="/telemetry-event/{{ id }}/stream/" sse-swap="message"
+            hx-target="#telemetry-events-of-device-table-body" hx-swap="afterbegin">
+            {{ telemetry_events_table([], "telemetry-events-of-device-table") }}
+        </div>
+        <div class="modal-action flex-0">
+            <form method="dialog">
+                {{ close_dialog_button() }}
+            </form>
+        </div>
+    </div>
+</dialog>

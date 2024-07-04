@@ -1,0 +1,33 @@
+{#
+Table that shows sales events.
+
+Required context:
+- items: The list of events to show in the table.
+#}
+
+{% from "app_model/sales_event/macros/sales-event-table-row.jinja" import sales_event_table_row as table_row %}
+
+{% macro table_head() -%}
+<thead>
+    <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Currency</th>
+        <th>Recorded at</th>
+    </tr>
+</thead>
+{%- endmacro %}
+
+{% macro sales_events_table(items, id="sales-events-table") %}
+<table id="{{ id }}" class="table table-pin-cols">
+    {{ table_head() }}
+
+    <tbody id="{{ id }}-body">
+        {% for event in items %}
+        {{ table_row(event.item, event.price, event.currency, event.created_at) }}
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{{ sales_events_table(items) }}

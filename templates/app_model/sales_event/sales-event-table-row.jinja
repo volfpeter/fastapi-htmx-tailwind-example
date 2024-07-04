@@ -1,0 +1,10 @@
+{#
+Sales event table row component.
+
+Required context:
+- An unpacked sales event.
+#}
+
+{% from "app_model/sales_event/macros/sales-event-table-row.jinja" import sales_event_table_row %}
+
+{{ sales_event_table_row(item, price, currency, created_at) }}

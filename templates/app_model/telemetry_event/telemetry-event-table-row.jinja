@@ -1,0 +1,10 @@
+{#
+Telemetry event table row component.
+
+Required context:
+- An unpacked telemetry event.
+#}
+
+{% from "app_model/telemetry_event/macros/telemetry-event-table-row.jinja" import telemetry_event_table_row %}
+
+{{ telemetry_event_table_row(status, detail, created_at) }}

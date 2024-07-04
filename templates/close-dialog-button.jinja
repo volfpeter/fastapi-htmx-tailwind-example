@@ -1,0 +1,5 @@
+{# Close button macro for dialogs that removes its owner dialog from the DOM when clicked. #}
+
+{% macro close_dialog_button(text="Close") %}
+<button class="btn" hx-trigger="click" hx-get="/ack" hx-target="closest dialog" hx-swap="delete">{{ text }}</button>
+{% endmacro %}

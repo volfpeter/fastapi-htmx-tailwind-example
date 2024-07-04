@@ -1,0 +1,40 @@
+{#
+Base template for all pages of the application.
+
+Blocks:
+- title: For setting the page title.
+- body: For the body of the page, required.
+
+Utility containers:
+- dialog-container: The HTMX target container for dialogs.
+#}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}IoT Dashboard{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='tailwind.css') }}" type="text/css" />
+
+    {#
+    Ideally a "compiled" DaisyUI CSS should be used that doesn't include unnecessary rules, but
+    that (well, plugins) would require npm and I wanted to keep the toolchain simple for this task.
+    #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" type="text/css" />
+
+    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+    <script src="https://unpkg.com/htmx-ext-json-enc@2.0.0/json-enc.js"></script>
+    <script src="https://unpkg.com/htmx-ext-sse@2.0.0/sse.js"></script>
+</head>
+
+<body>
+    {% block body required %}{% endblock %}
+
+    <div id="dialog-container"></div>
+</body>
+
+</html>

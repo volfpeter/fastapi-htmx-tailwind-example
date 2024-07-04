@@ -1,0 +1,21 @@
+{# Telemetry event table row macro. #}
+
+{% macro status_span(status) %}
+{% if status == "error" %}
+<span class="font-semibold text-error">{{ status }}</span>
+{% elif status == "maintenance-required" %}
+<span class="font-semibold text-warning">{{ status }}</span>
+{% elif status == "working" %}
+<span class="text-success">{{ status }}</span>
+{% else %}
+<span class="text-info">{{ status }}</span>
+{% endif %}
+{% endmacro %}
+
+{% macro telemetry_event_table_row(status, detail, created_at) %}
+<tr>
+    <td>{{ status_span(status) }}</td>
+    <td>{{ detail }}</td>
+    <td>{{ created_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+</tr>
+{% endmacro %}

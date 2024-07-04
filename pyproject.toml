@@ -1,0 +1,76 @@
+[tool.poetry]
+name = "fastapi-htmx-tailwind-example"
+version = "0.1.0"
+description = "IoT dashboard example built with FastAPI, HTMX, Jinja, TailwindCSS, DaisyUI, and MongoDB."
+authors = ["Peter Volf <do.volfp@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.111.0"
+pydantic = "^2.7.4"
+fasthx = "^0.2403.1"
+motorhead = "^0.2403.0"
+sse-starlette = "^2.1.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.1"
+poethepoet = "^0.27.0"
+ruff = "^0.5.0"
+pytailwindcss = "^0.2.0"
+pytest = "^8.2.2"
+pytest-random-order = "^1.1.1"
+watchfiles = "^0.22.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+strict = true
+show_error_codes = true
+
+[tool.ruff]
+line-length = 108
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "dist",
+    "docs",
+]
+lint.select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "S",  # flake8-bandit - we must ignore these rules in tests
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*" = ["S101"]  # S101: use of assert detected
+
+[tool.poe.tasks]
+# NOTE: debug why uvicorn won't recognize reload-include in env file.
+start.cmd = "uvicorn app.main:make_app --reload-include='*.jinja' --reload-include='tailwind.input.css'"
+start.envfile = ".uvicorn.env"
+
+build-css = "tailwindcss -i static/tailwind.input.css -o static/tailwind.css --watch"
+build-prod-css = "tailwindcss -i static/tailwind.input.css -o static/tailwind.css --minify"
+
+check-format = "ruff format --check ."
+lint = "ruff check ."
+mypy = "mypy ."
+static-checks.sequence = ["check-format", "lint", "mypy"]
+static-checks.ignore_fail = "return_non_zero"
+
+format = "ruff format ."
+lint-fix = "ruff . --fix"
+
+test = "python -m pytest tests --random-order"

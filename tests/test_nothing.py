@@ -1,0 +1,3 @@
+def test_nothing() -> None:
+    # Placeholder test just to have something pytest can collect.
+    ...

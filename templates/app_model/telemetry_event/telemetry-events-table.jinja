@@ -1,0 +1,33 @@
+{#
+Table that shows telemetry events.
+
+Required context:
+- items: The list of events to show in the table.
+#}
+
+{% from "app_model/telemetry_event/macros/telemetry-event-table-row.jinja" import telemetry_event_table_row as table_row
+%}
+
+{% macro table_head() -%}
+<thead>
+    <tr>
+        <th>Status</th>
+        <th>Detail</th>
+        <th>Recorded at</th>
+    </tr>
+</thead>
+{%- endmacro %}
+
+{% macro telemetry_events_table(items, id="telemetry-events-table") %}
+<table id="{{ id }}" class="table table-pin-cols">
+    {{ table_head() }}
+
+    <tbody id="{{ id }}-body">
+        {% for event in items %}
+        {{ table_row(event.item, event.price, event.currency, event.created_at) }}
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{{ telemetry_events_table(items) }}

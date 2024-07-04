@@ -1,0 +1,46 @@
+{#
+The main page for device-related content.
+
+Required context:
+- items: The list of devices to show.
+#}
+
+{% extends "base.jinja" %}
+
+{% set device_events = "device.created from:body, device.updated from:body, device.deleted from:body" %}
+
+{% block title %}Devices{% endblock %}
+
+{% block body %}
+<div class="w-full p-4 space-y-1">
+    <div class="flex">
+        <div class="flex-1">
+            <button class="btn btn-primary" hx-trigger="click" hx-post="/device-ui/" hx-target="#dialog-container">New
+                Device</button>
+        </div>
+        <div class="flex-none">
+            <label class="input input-bordered flex items-center gap-2 w-80">
+                {# Active search for devices. #}
+                <input type="search" name="code" class="grow w-full" placeholder="Search by device code"
+                    hx-trigger="input changed delay:500ms, search, {{ device_events }}" hx-get="/device/"
+                    hx-target="#devices-table" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                    class="h-4 w-4 opacity-70">
+                    <path fill-rule="evenodd"
+                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                        clip-rule="evenodd" />
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    {#
+    Lazy-load the table's content and make sure the search input's value is submitted
+    so the table immediately shows the correct items.
+    #}
+    <div class="overflow-x-auto" hx-trigger="load" hx-get="/device/" hx-target="#devices-table"
+        hx-include="input, [name='code']" hx-inherit="hx-get">
+        {% include "app_model/device/devices-table.jinja" %}
+    </div>
+</div>
+{% endblock %}
