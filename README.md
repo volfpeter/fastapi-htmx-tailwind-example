@@ -78,6 +78,10 @@ Use `ruff` for linting and formatting, `mypy` for static code analysis, `pytest`
 
 As mentioned above, use `honcho start` to start the project, it automatically watches code changes and regenerates or restarts whatever is necessary for a convenient developer experience.
 
+# Contributing
+
+All contributions and enhancements are welcome.
+
 ## Note on TailwindCSS and DaisyUI
 
 While TailwindCSS doesn't require `npm`, getting plugins (e.g. DaisyUI) working does. In order to work around this limitation, this project loads the full, minified DaisyUI stylesheet from a CDN, which is quite bad for performance. Production applications should use `npm` and configure TailwindCSS and the DaisyUI plugins as if it was a JavaScript project.
