@@ -72,6 +72,10 @@ The application will be available at `http://127.0.0.1:10001/` (the port is conf
 
 When started with `honcho start`, the application will create some demo data. To prevent it from doing so, remove the `CREATE_DEMO_DATA=true` part from the `Procfile`'s `backend` process definition.
 
+## Notes
+
+- Demo data creation happens in the application's lifespan to immediately have some data when the project is started. This is not a good practice though for development, because every server restart (code change) will trigger data creation. So if you're working on a project like, move data creation into a separate script or CLI (e.g. with `typer`).
+
 ## Development
 
 Use `ruff` for linting and formatting, `mypy` for static code analysis, `pytest` for testing, and `poethepoet` as the task runner.
