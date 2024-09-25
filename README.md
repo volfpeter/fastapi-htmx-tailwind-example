@@ -75,6 +75,7 @@ When started with `honcho start`, the application will create some demo data. To
 ## Notes
 
 - Demo data creation happens in the application's lifespan to immediately have some data when the project is started. This is not a good practice though for development, because every server restart (code change) will trigger data creation. So if you're working on a project like, move data creation into a separate script or CLI (e.g. with `typer`).
+- Since the creation of this project, `fasthx` `1.0` and then `2.0` got released with new features that could simplify this project, for example by removing a few routes with duplicated internal logic. Check the [fasthx releases](https://github.com/volfpeter/fasthx/releases) for more details.
 
 ## Development
 
