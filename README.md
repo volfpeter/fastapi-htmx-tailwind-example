@@ -5,6 +5,12 @@
 
 Example application (IoT dashboard) built with FastAPI, HTMX, TailwindCSS, DaisyUI, Jinja, and MongoDB.
 
+## Status
+
+Since the creation of this project, `fasthx` `1.0` and then `2.0` got released with new features that could simplify this project, for example by removing a few routes with duplicated internal logic. Check the [fasthx releases](https://github.com/volfpeter/fasthx/releases) for more details.
+
+A similar example project with a far more up to date tooling - including the use of newer `FastAPI` and `FastHX` features, as well as `htmy` instead of `jinja` for rendering - can be found [here](https://github.com/volfpeter/lipsum-chat).
+
 ## Goal
 
 Create an extensive example project that integrates the following technologies:
@@ -75,7 +81,6 @@ When started with `honcho start`, the application will create some demo data. To
 ## Notes
 
 - Demo data creation happens in the application's lifespan to immediately have some data when the project is started. This is not a good practice though for development, because every server restart (code change) will trigger data creation. So if you're working on a project like, move data creation into a separate script or CLI (e.g. with `typer`).
-- Since the creation of this project, `fasthx` `1.0` and then `2.0` got released with new features that could simplify this project, for example by removing a few routes with duplicated internal logic. Check the [fasthx releases](https://github.com/volfpeter/fasthx/releases) for more details.
 
 ## Development
 
