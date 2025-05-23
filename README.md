@@ -9,7 +9,7 @@ Example application (IoT dashboard) built with FastAPI, HTMX, TailwindCSS, Daisy
 
 Since the creation of this project, `fasthx` `1.0` and then `2.0` got released with new features that could simplify this project, for example by removing a few routes with duplicated internal logic. Check the [fasthx releases](https://github.com/volfpeter/fasthx/releases) for more details.
 
-A similar example project with a far more up to date tooling - including the use of newer `FastAPI` and `FastHX` features, as well as `htmy` instead of `jinja` for rendering - can be found [here](https://github.com/volfpeter/lipsum-chat).
+A similar example project with far more up to date tooling - including the use of newer `FastAPI` and `FastHX` features, as well as `htmy` instead of `jinja` for UI - can be found [here](https://github.com/volfpeter/lipsum-chat).
 
 ## Goal
 
